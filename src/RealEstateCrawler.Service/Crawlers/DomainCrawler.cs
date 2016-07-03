@@ -57,12 +57,12 @@ namespace RealEstateCrawler.Service.Crawlers
                         PageUrl = LocateHref(result)
                     };
                             
-                    Console.WriteLine(property.Price);
+                    Console.WriteLine($"Price: {property.Price}");
                     Console.WriteLine(property.Address);
-                    Console.WriteLine(property.Bathrooms);
-                    Console.WriteLine(property.Bedrooms);
-                    Console.WriteLine(property.Parking);
-                    Console.WriteLine(property.PageUrl);
+                    Console.WriteLine($"Bathrooms: {property.Bathrooms}");
+                    Console.WriteLine($"Bedrooms: {property.Bedrooms}");
+                    Console.WriteLine($"Parking: {property.Parking}");
+                    Console.WriteLine($"URL: {property.PageUrl}");
 
                     properties.Add(property);
                 }

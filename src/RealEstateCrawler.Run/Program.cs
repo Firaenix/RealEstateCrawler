@@ -11,7 +11,7 @@ namespace RealEstateCrawler
         {
             var domain = new RealEstateCrawler.Service.Crawlers.DomainCrawler(new Service.Models.Address()
             {
-                Street = "North Ryde"
+                Street = "Seaforth"
             });
             domain.Scrape();
 
