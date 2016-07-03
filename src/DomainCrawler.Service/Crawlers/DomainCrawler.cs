@@ -28,60 +28,49 @@ namespace RealEstateCrawler.Service.Crawlers
         public async void Scrape()
         {
             var html = await DomainUtils.GetDomainPageHtml(await DomainUtils.ResolveAddress(_completeUrl), "rent");
-
-            using (var client = new HttpClient())
-            {
-                Console.WriteLine($"URL: {_completeUrl}");
-
-                using (HttpResponseMessage response = await client.GetAsync(_completeUrl))
-                using (HttpContent content = response.Content)
-                {
-                    string html = await content.ReadAsStringAsync();
-                    var htmlDoc = new HtmlAgilityPack.HtmlDocument();
+            var htmlDoc = new HtmlAgilityPack.HtmlDocument();
                     
-                    htmlDoc.LoadHtml(html);
+            htmlDoc.LoadHtml(html);
 
-                    var searchresults = htmlDoc.GetElementbyId("searchresults");
-                    var results = searchresults.Descendants().Where(x => x.Name == "li");
+            var searchresults = htmlDoc.GetElementbyId("searchresults");
+            var results = searchresults.Descendants().Where(x => x.Name == "li");
 
-                    Console.WriteLine($"Total: {results.Count()}");
-                    foreach (var result in results)
+            Console.WriteLine($"Total: {results.Count()}");
+            foreach (var result in results)
+            {
+                // If we find a street address, add to the address list
+                if (Regex.IsMatch(result.InnerText, DomainUtils.PropertyRegex))
+                {
+                    var matchGroups = Regex.Match(result.InnerText, DomainUtils.PropertyRegex).Groups;
+                    var property = new Property()
                     {
-                        // If we find a street address, add to the address list
-                        if (Regex.IsMatch(result.InnerText, DomainUtils.PropertyRegex))
+                        Address = new Address
                         {
-                            var matchGroups = Regex.Match(result.InnerText, DomainUtils.PropertyRegex).Groups;
-                            var property = new Property()
-                            {
-                                Address = new Address
-                                {
-                                    Number = matchGroups["No"].Value,
-                                    Street = matchGroups["Street"].Value,
-                                    Suburb = matchGroups["Suburb"].Value,
-                                    State = matchGroups["State"].Value,
-                                    PostCode = matchGroups["PostCode"].Value
-                                },
-                                Price = matchGroups["Price"].Value,
-                                Bathrooms = matchGroups["Bath"].Value,
-                                Bedrooms = matchGroups["Bed"].Value,
-                                Parking = matchGroups["Park"].Value,
-                                PageUrl = LocateHref(result)
-                            };
+                            Number = matchGroups["No"].Value,
+                            Street = matchGroups["Street"].Value,
+                            Suburb = matchGroups["Suburb"].Value,
+                            State = matchGroups["State"].Value,
+                            PostCode = matchGroups["PostCode"].Value
+                        },
+                        Price = matchGroups["Price"].Value,
+                        Bathrooms = matchGroups["Bath"].Value,
+                        Bedrooms = matchGroups["Bed"].Value,
+                        Parking = matchGroups["Park"].Value,
+                        PageUrl = LocateHref(result)
+                    };
                             
-                            Console.WriteLine(property.Price);
-                            Console.WriteLine(property.Address);
-                            Console.WriteLine(property.Bathrooms);
-                            Console.WriteLine(property.Bedrooms);
-                            Console.WriteLine(property.Parking);
-                            Console.WriteLine(property.PageUrl);
+                    Console.WriteLine(property.Price);
+                    Console.WriteLine(property.Address);
+                    Console.WriteLine(property.Bathrooms);
+                    Console.WriteLine(property.Bedrooms);
+                    Console.WriteLine(property.Parking);
+                    Console.WriteLine(property.PageUrl);
 
-                            properties.Add(property);
-                        }
-                    }
-
-                    Console.WriteLine("Done");
+                    properties.Add(property);
                 }
             }
+
+            Console.WriteLine("Done");
         }
 
         private string LocateHref(HtmlNode node)
