@@ -5,30 +5,28 @@ using System.Net.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Net;
 using System.Text.RegularExpressions;
 using RealEstateCrawler.Service.Utilities;
 using HtmlAgilityPack;
+using Newtonsoft.Json.Linq;
 
 namespace RealEstateCrawler.Service.Crawlers
 {
     public class DomainCrawler : ICrawler
     {
-        private readonly string _baseUrl = "http://www.domain.com.au/";
-        private readonly string _searchUrl = "rent/";
-        private string _completeUrl = "";
+        private string _address = "";
         private IList<Property> properties = new List<Property>();
 
         public DomainCrawler(Address address)
         {
-            //_completeUrl = WebUtility.HtmlEncode($"{_baseUrl}{_searchUrl}{address.ToString()}");
-            _completeUrl = address.ToString();
+            _address = address.ToString();
         }
 
         public async void Scrape()
         {
-            var html = await DomainUtils.GetDomainPageHtml(await DomainUtils.ResolveAddress(_completeUrl), "rent");
-            var htmlDoc = new HtmlAgilityPack.HtmlDocument();
+            var resolvedAddress = await ResolveAddress(_address);
+            var html = await GetDomainPageHtml(resolvedAddress, "rent");
+            var htmlDoc = new HtmlDocument();
                     
             htmlDoc.LoadHtml(html);
 
@@ -87,6 +85,35 @@ namespace RealEstateCrawler.Service.Crawlers
             }
 
             return string.Empty;
+        }
+
+        public async static Task<string> ResolveAddress(string addressString)
+        {
+            var fixedString = addressString.Replace(' ', '+');
+
+            using (var myHttpClient = new HttpClient())
+            {
+                var response = await myHttpClient.GetAsync($"http://www.domain.com.au/SearchSuggest/SuggestSuburbs?prefixText={fixedString}&count=1");
+
+                var content = JArray.Parse(await response.Content.ReadAsStringAsync());
+
+                return content.First().Value<string>("Name");
+            }
+        }
+
+        public async static Task<string> GetDomainPageHtml(string address, string searchType)
+        {
+            var formContent = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("Terms.Mode", searchType),
+                new KeyValuePair<string, string>("Terms.Suburb", address),
+                new KeyValuePair<string, string>("Terms.SurroundingSuburbs", "false")
+            });
+
+            var myHttpClient = new HttpClient();
+            var response = await myHttpClient.PostAsync("http://www.domain.com.au/home/search", formContent);
+
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }
