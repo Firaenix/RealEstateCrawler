@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
+using RealEstateCrawler.Service.Crawlers;
+using RealEstateCrawler.Service.Models;
 
 namespace RealEstateCrawler
 {
@@ -9,12 +8,12 @@ namespace RealEstateCrawler
     {
         public static void Main(string[] args)
         {
-            var domain = new RealEstateCrawler.Service.Crawlers.DomainCrawler(new Service.Models.Address()
+            var domain = new DomainCrawler(new Address()
             {
-                Street = "Seaforth"
+                Street = "North Sydney"
             });
             domain.Scrape();
-
+            
             Console.ReadKey();
         }
     }
