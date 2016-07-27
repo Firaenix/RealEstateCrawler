@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using RealEstateCrawler.Service.Interfaces;
 
 namespace RealEstateCrawler.Service.Models
 {
-    public class Property
+    public class Property : IProperty
     {
-        public Address Address;
-        public string Price;
-        public string PageUrl;
-        public string Bedrooms;
-        public string Bathrooms;
-        public string Parking;
+        public IAddress Address { get; set; }
+
+        public string Bathrooms { get; set; }
+
+        public string Bedrooms { get; set; }
+
+        public string PageUrl { get; set; }
+
+        public string Parking { get; set; }
+
+        public string Price { get; set; }
     }
 }

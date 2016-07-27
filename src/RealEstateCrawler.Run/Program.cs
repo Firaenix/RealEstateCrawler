@@ -12,7 +12,9 @@ namespace RealEstateCrawler
             {
                 Street = "North Sydney"
             });
-            domain.Scrape();
+
+            // TODO: This is shit, fix this
+            domain.Scrape().Wait();
             
             Console.ReadKey();
         }

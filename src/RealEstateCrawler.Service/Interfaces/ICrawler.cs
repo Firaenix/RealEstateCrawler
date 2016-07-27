@@ -7,6 +7,6 @@ namespace RealEstateCrawler.Service.Interfaces
 {
     public interface ICrawler
     {
-        void Scrape();
+        Task<IList<IProperty>> Scrape();
     }
 }

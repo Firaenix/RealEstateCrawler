@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using RealEstateCrawler.Service.Interfaces;
 
 namespace RealEstateCrawler.Service.Models
 {
-    public class Address
+    public class Address : IAddress
     {
-        public string Number;
-        public string Street;
-        public string Suburb;
-        public string PostCode;
-        public string State;
+        public string Number { get; set; }
+        public string Street { get; set; }
+        public string Suburb { get; set; }
+        public string PostCode { get; set; }
+        public string State { get; set; }
 
         public override string ToString()
         {
