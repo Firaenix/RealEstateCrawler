@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RealEstateCrawler.Service", "src\RealEstateCrawler.Service\RealEstateCrawler.Service.xproj", "{B6F4BD0B-273F-48C0-B92A-76BE9F6001E5}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RealEstateCrawler.Run", "RealEstateCrawler.Run\RealEstateCrawler.Run.xproj", "{5A1D24B7-B4BC-45E6-8B7C-E801BBAE81EE}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RealEstateCrawler.Run", "src\RealEstateCrawler.Run\RealEstateCrawler.Run.xproj", "{5A1D24B7-B4BC-45E6-8B7C-E801BBAE81EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
