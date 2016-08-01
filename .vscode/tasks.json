@@ -7,7 +7,7 @@
         {
             "taskName": "build",
             "args": [
-                "${workspaceRoot}/RealEstateCrawler.Run/project.json"
+                "${workspaceRoot}/src/RealEstateCrawler.Run/project.json"
             ],
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"
