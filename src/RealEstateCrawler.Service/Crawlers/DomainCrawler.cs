@@ -49,6 +49,7 @@ namespace RealEstateCrawler.Service.Crawlers
             }
             
             Console.WriteLine("Done");
+            Console.WriteLine($"Scraped {_properties.Count} properties.");
 
             return _properties;
         }
