@@ -9,7 +9,7 @@
             "program": "${workspaceRoot}/src/RealEstateCrawler.Run/bin/Debug/netcoreapp1.0/RealEstateCrawler.Run.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
-            "externalConsole": true,
+            "externalConsole": false,
             "stopAtEntry": false
         },
         {
