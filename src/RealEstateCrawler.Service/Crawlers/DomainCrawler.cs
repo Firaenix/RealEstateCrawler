@@ -18,13 +18,15 @@ namespace RealEstateCrawler.Service.Crawlers
         private string _currentUrl = "http://www.domain.com.au/home/search";
         private IList<IProperty> _properties = new List<IProperty>();
 
-        public DomainCrawler(Address address)
+        public DomainCrawler()
         {
-            _address = address.ToString();
         }
 
         public async Task<IList<IProperty>> Scrape()
         {
+            if (string.IsNullOrWhiteSpace(_address))
+                return null;
+
             var resolvedAddress = await ResolveAddress(_address);
             var html = await GetInitialPageHtml(resolvedAddress, "rent");
             var htmlDoc = new HtmlDocument();
@@ -180,6 +182,11 @@ namespace RealEstateCrawler.Service.Crawlers
 
             _currentUrl = response.RequestMessage.RequestUri.AbsoluteUri;
             return await response.Content.ReadAsStringAsync();
+        }
+
+        public void SetAddress(IAddress address)
+        {
+            _address = address.ToString();
         }
     }
 }
