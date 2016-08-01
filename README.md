@@ -19,3 +19,43 @@ This project is aimed at scraping data from sites such as Domain.com.au, RealEst
 - Should be all set!
 
 # Code Style
+
+```
+1. If in C#, curly braces on following line
+if (true)
+{
+  ...
+} 
+else 
+{
+  ...
+}
+
+1a. If JavaScript/TypeScript curly braces inline
+if (true) {
+  ...
+} else {
+  ...
+}
+
+2. Use C# 6 snippets
+Instead of:
+if (thisArray != null && thisArray.Count == 6)
+{
+  ...
+}
+
+Use: 
+if (thisArray?.Count == 6)
+{
+  ...
+}
+
+Preferable:
+Use C# 6 String Interpolation instead of string.Format
+
+String Interpolation:
+$"Size of thisArray is: {thisArray.Count}"
+
+Please remove unused imports/using statements!
+```
