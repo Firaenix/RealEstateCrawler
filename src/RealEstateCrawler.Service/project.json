@@ -5,7 +5,10 @@
     "HtmlAgilityPack.NetCore": "1.4.9.2",
     "NETStandard.Library": "1.6.0",
     "Newtonsoft.Json": "9.0.1",
-    "System.Text.RegularExpressions": "4.1.0"
+    "System.Text.RegularExpressions": "4.1.0",
+    "RaisingStudio.MongoDB.Bson": "2.2.5",
+    "RaisingStudio.MongoDB.Driver.Core": "2.2.5",
+    "RaisingStudio.MongoDB.Driver": "2.2.5"
   },
 
   "frameworks": {
