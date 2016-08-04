@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RealEstateCrawler.Service.Interfaces;
 using RealEstateCrawler.Service.Crawlers;
+using RealEstateCrawler.Service.Services;
 
 namespace RealEstateCrawler.Run
 {
@@ -38,7 +39,7 @@ namespace RealEstateCrawler.Run
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-            services.AddTransient<ICrawler, DomainCrawler>();
+            services.AddTransient<IService, DomainService>();
 
             services.AddMvc();
         }

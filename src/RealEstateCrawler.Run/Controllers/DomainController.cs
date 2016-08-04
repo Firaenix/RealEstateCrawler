@@ -13,30 +13,28 @@ namespace RealEstateCrawler.Run
     [Route("api/[controller]")]
     public class DomainController : Controller
     {
-        private ICrawler _domainCrawler;
+        private IService _domainService;
 
-        public DomainController(ICrawler domainCrawler)
+        public DomainController(IService domainService)
         {
-            _domainCrawler = domainCrawler;
+            _domainService = domainService;
         }
 
         [HttpPost("lookup")]
         public async Task<IEnumerable<IProperty>> Lookup([FromBody]Address address = null)
         {
-            _domainCrawler.SetAddress(address);
-
-            return await _domainCrawler.Scrape();
+            return await _domainService.SearchPropertiesByAddress(address);
         }
 
-        [HttpGet("suburb/{address}")]
-        public async Task<IEnumerable<IProperty>> Suburb([FromRoute]string address)
+        [HttpGet("suburb/{queryAddress}")]
+        public async Task<IEnumerable<IProperty>> Suburb([FromRoute]string queryAddress)
         {
-            _domainCrawler.SetAddress(new Address
+            var address = new Address
             {
-                Suburb = address
-            });
+                Suburb = queryAddress
+            };
 
-            return await _domainCrawler.Scrape();
+            return await _domainService.SearchPropertiesByAddress(address);
         }
     }
 }
