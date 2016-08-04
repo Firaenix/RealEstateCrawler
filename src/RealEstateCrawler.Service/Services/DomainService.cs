@@ -22,7 +22,9 @@ namespace RealEstateCrawler.Service.Services
         public async Task<IList<IProperty>> SearchPropertiesByAddress(IAddress address)
         {
             _domainCrawler.SetAddress(address);
-            return await _domainCrawler.Scrape();
+            var properties = await _domainCrawler.Scrape();
+            
+            return properties;
         }
 
         public Task StoreResults(IList<IProperty> properties)
