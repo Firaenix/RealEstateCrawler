@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using RealEstateCrawler.Service.Crawlers;
 using RealEstateCrawler.Service.Interfaces;
-using RealEstateCrawler.Service.Models;
 
 namespace RealEstateCrawler.Service.Services
 {

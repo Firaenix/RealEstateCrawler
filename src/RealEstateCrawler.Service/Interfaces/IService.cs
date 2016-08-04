@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using RealEstateCrawler.Service.Models;
 
 namespace RealEstateCrawler.Service.Interfaces
 {
