@@ -19,10 +19,16 @@
             - Neo4j
                 - Graphical representation as a Graph
                 - Site -> Property <- State
+                - Example:
+                    -   MATCH (p:Property)
+                        WHERE p.Suburb = "North Sydney"
+                        RETURN p
         - MongoDB? 
             - Very large data sets
             - Fast to return all JSON Data
             - Low memory footprint
+            - Example:
+                - db.properties.find({ "Suburb": "North Sydney" });
         - Standard SQL (probs not)
 
 # Merge Service Rules
